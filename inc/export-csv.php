@@ -48,10 +48,10 @@ class Expoert_CSV{
             $tmp = str_replace($unwanted, '', $aKeys);
             $heading[] = ucfirst($tmp);
         }
-        fputcsv($df, $heading);
+        fputcsv($df, $heading, apply_filters( 'CFDB7_CSV_Export_delimiter', ',' ) );
 
         foreach ($array as $row) {
-            fputcsv($df, $row);
+            fputcsv($df, $row, apply_filters( 'CFDB7_CSV_Export_delimiter', ',' ) );
         }
         fclose($df);
         return ob_get_clean();
