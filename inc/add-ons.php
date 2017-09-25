@@ -8,7 +8,7 @@ add_submenu_page('cfdb7-list.php', 'Extensions', 'Extensions', 'manage_options',
 function cfdb7_extensions(){
     ?>
     <div class="wrap">
-        <h2>Extensions for CFDB7 
+        <h2>Extensions for CFDB7
             <span>
                 <a class="button-primary" href="https://ciphercoin.com/contact-form-7-database-cfdb7-add-ons/">Browse All Extensions</a>
             </span>
@@ -16,7 +16,7 @@ function cfdb7_extensions(){
         <p>These extensions <strong>add functionality</strong> to CFDB7</p>
         <?php echo cfdb7_add_ons_get_feed(); ?>
     </div>
-    <?php 
+    <?php
 }
 
 /**
