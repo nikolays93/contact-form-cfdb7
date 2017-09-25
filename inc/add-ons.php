@@ -1,6 +1,6 @@
 <?php
 
-add_submenu_page('cfdb7-list.php', 'Extensions', 'Extensions', 'manage_options', 'extensions',  'cfdb7_extensions' );
+add_submenu_page('wpcf7', 'Extensions', 'CFDB7 Extensions', 'manage_options', 'extensions',  'cfdb7_extensions' );
 
 /**
  * Extensions page
