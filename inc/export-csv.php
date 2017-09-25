@@ -48,6 +48,7 @@ class Expoert_CSV{
             $tmp = str_replace($unwanted, '', $aKeys);
             $heading[] = ucfirst($tmp);
         }
+        fwrite($df, "\xEF\xBB\xBF");
         fputcsv($df, $heading, apply_filters( 'CFDB7_CSV_Export_delimiter', ',' ) );
 
         foreach ($array as $row) {
