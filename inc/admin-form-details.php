@@ -38,7 +38,9 @@ class CFdb7_Form_Details
             <div id="welcome-panel" class="welcome-panel">
                 <div class="welcome-panel-content">
                     <div class="welcome-panel-column-container">
+                        <?php do_action('cfdb7_before_formdetails_title',$this->form_post_id ); ?>
                         <h3><?php echo get_the_title( $this->form_post_id ); ?></h3>
+                        <?php do_action('cfdb7_after_formdetails_title', $this->form_post_id ); ?>
                         <p></span><?php echo $results[0]->form_date; ?></p>
                         <?php $form_data  = unserialize( $results[0]->form_value );
 
@@ -55,36 +57,24 @@ class CFdb7_Form_Details
                                 .$data.'</a></p>'; 
                             }else{
 
-                                $can_foreach = is_array($data) || is_object($data);
 
-                                if ( $can_foreach ) {
+                                if ( is_array($data) ) {
 
-                                    $field_name = '';
-                                    $list_data  = '';
-                                    foreach ($data as $k => $val) {
+                                    $key_val = str_replace('your-', '', $key); 
+                                    $key_val = ucfirst( $key_val );
+                                    $arr_str_data =  implode(', ',$data);
+                                    echo '<p><b>'.$key_val.'</b>: '. nl2br($arr_str_data) .'</p>';
 
-                                        $key_val     = str_replace('cfdb7_file', '', $key);
-                                        $key_val     = str_replace('your-', '', $key_val); 
-                                        $key_val     = ucfirst( $key_val );
- 
-                                        if ( empty($field_name) ):
-                                            $field_name = $key_val;
-                                            $list_data .= '<p><b>'.$field_name.'</b>: '.$val;
-                                        else:
-                                            $list_data .= ', '.$val.'</p>';
-                                        endif;
-                                       
-                                    }
-                                    echo $list_data;
-                                  
                                 }else{
 
                                     $key_val = str_replace('your-', '', $key); 
                                     $key_val = ucfirst( $key_val );
-                                    echo '<p><b>'.$key_val.'</b>: '.$data.'</p>';
+                                    echo '<p><b>'.$key_val.'</b>: '.nl2br($data).'</p>';
                                 }
-                            }  
+                            }
+
                         endforeach;
+
                         $form_data['cfdb7_status'] = 'read';
                         $form_data = serialize( $form_data );
                         $form_id = $results[0]->form_id;
@@ -97,7 +87,8 @@ class CFdb7_Form_Details
                 </div>
             </div>
         </div>
-        <?php 
-    }
+        <?php
+        do_action('cfdb7_after_formdetails', $this->form_post_id ); 
+    }  
 
 }

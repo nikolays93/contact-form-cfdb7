@@ -5,13 +5,13 @@ Plugin URI: http://ciphercoin.com/
 Description: Save and manage Contact Form 7 messages. Never lose important data. Contact Form CFDB7 plugin is an add-on for the Contact Form 7 plugin.
 Author: Arshid
 Author URI: http://ciphercoin.com/
-Text Domain: contact-form-cfdb7
-Version: 1.0.2
+Text Domain: contact-form-cfdb7 
+Version: 1.1.4
 */
 
 
 register_activation_hook( __FILE__, 'cfdb7_pugin_activation' );
-function cfdb7_pugin_activation(){
+function cfdb7_pugin_activation(){ 
 
     global $wpdb;
     $table_name = $wpdb->prefix.'db7_forms';
@@ -54,7 +54,7 @@ function cfdb7_before_send_mail( $form_tag ) {
     if ( $form ) {
 
         $black_list   = array('_wpcf7', '_wpcf7_version', '_wpcf7_locale', '_wpcf7_unit_tag',
-        '_wpcf7_is_ajax_call','cfdb7_name');
+        '_wpcf7_is_ajax_call','cfdb7_name', '_wpcf7_container_post');
 
         $data           = $form->get_posted_data();
         $files          = $form->uploaded_files();
@@ -71,19 +71,29 @@ function cfdb7_before_send_mail( $form_tag ) {
         foreach ($data as $key => $d) {
             if ( !in_array($key, $black_list ) && !in_array($key, $uploaded_files ) ) {
                 
-                $form_data[$key] = $d;
+                $tmpD = $d;
+                
+                if ( ! is_array($d) ){
+
+                    $bl   = array('\"',"\'",'/','\\');
+                    $wl   = array('&quot;','&#039;','&#047;', '&#092;');
+
+                    $tmpD = str_replace($bl, $wl, $tmpD );
+                } 
+
+                $form_data[$key] = $tmpD; 
             }
             if ( in_array($key, $uploaded_files ) ) {
                 $form_data[$key.'cfdb7_file'] = $time_now.'-'.$d;
             }
         }
 
-        /* cfdb7 before save data */ 
+        /* cfdb7 before save data. */ 
         do_action( 'cfdb7_before_save_data', $form_data );
 
         $form_post_id = $form_tag->id();
         $form_value   = serialize( $form_data );
-        $form_date    = date('Y-m-d H:i:s');
+        $form_date    = current_time('Y-m-d H:i:s');
  
         $wpdb->insert( $table_name, array( 
             'form_post_id' => $form_post_id,
@@ -101,10 +111,15 @@ function cfdb7_before_send_mail( $form_tag ) {
 add_action( 'wpcf7_before_send_mail', 'cfdb7_before_send_mail' );
 
 
-add_action( 'init', 'cfdb7_admin_settings');
+add_action( 'init', 'cfdb7_init');
 
-function cfdb7_admin_settings(){
+/**
+ * CFDB7 cfdb7_init and cfdb7_admin_init 
+ * Admin setting 
+ */
+function cfdb7_init(){
     
+    do_action( 'cfdb7_init' );
 
     if( is_admin() ){ 
 
@@ -113,15 +128,20 @@ function cfdb7_admin_settings(){
         require_once 'inc/admin-form-details.php';
         require_once 'inc/export-csv.php';
 
+        do_action( 'cfdb7_admin_init' );
+
         $csv = new Expoert_CSV();
-        if( isset($_REQUEST['csv']) && $_REQUEST['csv'] == true ){
+        if( isset($_REQUEST['csv']) && ( $_REQUEST['csv'] == true ) && isset( $_REQUEST['nonce'] ) ) {
+
+            $nonce  = filter_input( INPUT_GET, 'nonce', FILTER_SANITIZE_STRING );
+            
+            if ( ! wp_verify_nonce( $nonce, 'dnonce' ) ) wp_die('Invalid nonce..!!');
 
             $csv->download_csv_file();
         }
         new Cfdb7_Wp_Main_Page();
     }
 }
-
 
 
 add_action( 'admin_notices', 'cfdb7_admin_notice' );

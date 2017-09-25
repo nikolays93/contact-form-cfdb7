@@ -51,7 +51,7 @@ class Expoert_CSV{
         fputcsv($df, $heading);
 
         foreach ($array as $row) {
-            fputcsv( $df, $row );
+            fputcsv($df, $row);
         }
         fclose($df);
         return ob_get_clean();
@@ -77,22 +77,32 @@ class Expoert_CSV{
                 WHERE form_post_id = '$fid' ",OBJECT);
             $data = array();
             $i = 0;
-            foreach ($results as $result) {
+            foreach ($results as $result) :
                 $i++;
                 $data[$i]['form_id']    = $result->form_id;
                 $data[$i]['form_date']  = $result->form_date;
                 $resultTmp     = unserialize( $result->form_value );
                 $upload_dir    = wp_upload_dir();
                 $cfdb7_dir_url = $upload_dir['baseurl'].'/cfdb7_uploads';
-                foreach ($resultTmp as $key => $value) {
+                foreach ($resultTmp as $key => $value):
                    
-                   if (strpos($key, 'cfdb7_file') !== false ){
+                    if (strpos($key, 'cfdb7_file') !== false ){
                         $data[$i][$key] = $cfdb7_dir_url.'/'.$value;
                         continue;
-                   } 
-                   $data[$i][$key] = $value;
-                }
-            }
+                    }
+                    if ( is_array($value) ){
+
+                        $data[$i][$key] = implode(', ', $value);
+                        continue;
+                    } 
+                   
+                   $data[$i][$key] = str_replace( array('&quot;','&#039;','&#047;','&#092;')
+                    , array('"',"'",'/','\\'), $value );
+                
+                endforeach;
+
+            endforeach;
+            
             $this->download_send_headers( "cfdb7-" . date("Y-m-d") . ".csv" );
             echo $this->array2csv( $data );
             die();
