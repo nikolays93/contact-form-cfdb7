@@ -26,7 +26,7 @@ class Cfdb7_Wp_Main_Page
     {
         wp_enqueue_style( 'cfdb7-admin-style', plugin_dir_url(dirname(__FILE__)).'css/admin-style.css' );
 
-        add_submenu_page( 'wpcf7', 'Contact Forms', 'Results', 'manage_options', 'cfdb7-list.php', array($this, 'list_table_page') );
+        add_submenu_page( 'wpcf7', 'Contact Forms', __( 'Results', 'cfdb7' ), 'manage_options', 'cfdb7-list.php', array($this, 'list_table_page') );
 
          require_once 'add-ons.php';
 
@@ -41,7 +41,7 @@ class Cfdb7_Wp_Main_Page
         if ( ! in_array( 'contact-form-7/wp-contact-form-7.php',
                        apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
-           wp_die( 'Please activate <a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">contact form 7</a> plugin.' );
+           wp_die( __('Please activate <a href="https://wordpress.org/plugins/contact-form-7/" target="_blank">contact form 7</a> plugin.', 'cfdb7') );
         }
 
         $fid  = empty($_GET['fid']) ? 0 : (int) $_GET['fid'];
@@ -64,7 +64,7 @@ class Cfdb7_Wp_Main_Page
         ?>
             <div class="wrap">
                 <div id="icon-users" class="icon32"></div>
-                <h2>Contact Forms List</h2>
+                <h2><?php _e("Contact Forms List", 'cfdb7') ?></h2>
                 <?php $ListTable->display(); ?>
                 <?php echo $ListTable->get_results_message() ?>
             </div>
@@ -122,8 +122,8 @@ class CFDB7_Main_List_Table extends WP_List_Table
 
 
         $columns = array(
-            'name' => 'Name',
-            'count'=> 'Count'
+            'name' => __('Name'),
+            'count'=> __('Count', 'cfdb7'),
         );
 
         return $columns;
