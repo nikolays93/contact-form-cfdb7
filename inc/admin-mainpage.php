@@ -196,10 +196,12 @@ class CFDB7_Main_List_Table extends WP_List_Table
      */
     public function get_results_message()
     {
-        $msg = __("Total sent: %s %s");
-        return sprintf('<div class="alignright">'.$msg.'</div>',
-            $this->all_total,
-            $this->all_total < 1 ? 'message' : 'messages'
-            );
+        $res = '';
+        $res .= '<div class="alignright">';
+        $res .= __("Total sent", 'cfdb7') . ': ';
+        $res .= sprintf(  _n("%d message", "%d messages", $this->all_total, 'cfdb7'), $this->all_total );
+        $res .= '</div>';
+
+        return $res;
     }
 }

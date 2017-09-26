@@ -136,11 +136,14 @@ class CFDB7_List_Table extends WP_List_Table
                 if ( ( $key == 'cfdb7_status' ) || $key == 'cfdb7_file' ) continue;
 
                 $key_val       = str_replace('your-', '', $key);
-                $columns[$key] = ucfirst( $key_val );
-
+                $columns[$key] =  __( ucfirst($key_val), 'cfdb7' );
+                $translate_example = __( 'Email', 'cfdb7' );
+                $translate_example = __( 'Subject', 'cfdb7' );
+                $translate_example = __( 'Phone', 'cfdb7' );
+                $translate_example = __( 'Message', 'cfdb7' );
                 if ( sizeof($columns) > 4) break;
             }
-            $columns['form-date'] = 'Date';
+            $columns['form-date'] = __( 'Date', 'cfdb7' );
         }
 
 
@@ -183,9 +186,9 @@ class CFDB7_List_Table extends WP_List_Table
     public function get_bulk_actions() {
 
         return array(
-            'read'   => 'Read',
-            'unread' => 'Unread',
-            'delete' => 'Delete'
+            'read'   => __( 'Read', 'cfdb7'),
+            'unread' => __( 'Unread', 'cfdb7'),
+            'delete' => __( 'Delete', 'cfdb7'),
         );
 
     }
@@ -429,7 +432,7 @@ class CFDB7_List_Table extends WP_List_Table
         echo "\n";
         $nonce = wp_create_nonce( 'dnonce' );
         echo "<a href='".$_SERVER['REQUEST_URI']."&csv=true&nonce=".$nonce."' style='float:right; margin:0;' class='button'>";
-        echo 'Export CSV';
+        echo __( 'Export CSV', 'cfdb7' );
         echo '</a>';
         do_action('cfdb7_after_export_button');
     }

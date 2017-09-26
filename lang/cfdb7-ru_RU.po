@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cfdb7 1.0\n"
+"POT-Creation-Date: 2017-09-26 10:53+0400\n"
+"PO-Revision-Date: 2017-09-26 10:56+0400\n"
+"Last-Translator: \n"
+"Language-Team:  <nikolays93@ya.ru>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.7\n"
+"X-Poedit-Basepath: ../.\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;esc_attr__;esc_attr_e;esc_html__;"
+"esc_html_e\n"
+"X-Poedit-SearchPath-0: inc\n"
+
+#: inc/add-ons.php:41
+msgid ""
+"There was an error retrieving the extensions list from the server. Please "
+"try again later."
+msgstr "Сервер не доступен, попробуйте позже."
+
+#: inc/admin-mainpage.php:29
+msgid "Results"
+msgstr "Результаты"
+
+#: inc/admin-mainpage.php:44
+msgid ""
+"Please activate <a href=\"https://wordpress.org/plugins/contact-form-7/\" "
+"target=\"_blank\">contact form 7</a> plugin."
+msgstr ""
+"Пожалуйста активируйте плагин <a href=\"https://wordpress.org/plugins/"
+"contact-form-7/\" target=\"_blank\">Contact form 7</a>."
+
+#: inc/admin-mainpage.php:67
+msgid "Contact Forms List"
+msgstr "Список контактных форм"
+
+#: inc/admin-mainpage.php:125
+msgid "Name"
+msgstr "Имя"
+
+#: inc/admin-mainpage.php:126
+msgid "Count"
+msgstr "Кол-во"
+
+#: inc/admin-mainpage.php:200
+msgid "Total sent"
+msgstr "Всего отправлено"
+
+#: inc/admin-mainpage.php:201
+#, php-format
+msgid "%d message"
+msgid_plural "%d messages"
+msgstr[0] "%d сообщение"
+msgstr[1] "%d сообщения"
+msgstr[2] "%d сообщений"
+
+#: inc/admin-subpage.php:140
+msgid "Email"
+msgstr "Почта"
+
+#: inc/admin-subpage.php:141
+msgid "Subject"
+msgstr "Тема"
+
+#: inc/admin-subpage.php:142
+msgid "Phone"
+msgstr "Телефон"
+
+#: inc/admin-subpage.php:143
+msgid "Message"
+msgstr "Сообщение"
+
+#: inc/admin-subpage.php:146
+msgid "Date"
+msgstr "Дата"
+
+#: inc/admin-subpage.php:189
+msgid "Read"
+msgstr "Прочитано"
+
+#: inc/admin-subpage.php:190
+msgid "Unread"
+msgstr "Не прочитано"
+
+#: inc/admin-subpage.php:191
+msgid "Delete"
+msgstr "Удалить"
+
+#: inc/admin-subpage.php:419
+msgid "Select bulk action"
+msgstr ""
+
+#: inc/admin-subpage.php:421
+msgid "Bulk Actions"
+msgstr ""
+
+#: inc/admin-subpage.php:431
+msgid "Apply"
+msgstr ""
+
+#: inc/admin-subpage.php:435
+msgid "Export CSV"
+msgstr "Экспортировать в таблицу"
