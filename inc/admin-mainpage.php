@@ -66,6 +66,7 @@ class Cfdb7_Wp_Main_Page
                 <div id="icon-users" class="icon32"></div>
                 <h2>Contact Forms List</h2>
                 <?php $ListTable->display(); ?>
+                <?php echo $ListTable->get_results_message() ?>
             </div>
         <?php
     }
@@ -80,6 +81,8 @@ if( ! class_exists( 'WP_List_Table' ) ) {
  */
 class CFDB7_Main_List_Table extends WP_List_Table
 {
+
+    public $all_total;
 
     /**
      * Prepare the items for the table to process
@@ -167,6 +170,8 @@ class CFDB7_Main_List_Table extends WP_List_Table
             $data_value['name']  = sprintf( $link, $title );
             $data_value['count'] = sprintf( $link, $totalItems );
             $data[] = $data_value;
+
+            $this->all_total += $totalItems;
         endwhile;
 
         return $data;
@@ -184,5 +189,17 @@ class CFDB7_Main_List_Table extends WP_List_Table
         return $item[ $column_name ];
 
     }
-
+    /**
+     * Get total results
+     *
+     * @return html
+     */
+    public function get_results_message()
+    {
+        $msg = __("Total sent: %s %s");
+        return sprintf('<div class="alignright">'.$msg.'</div>',
+            $this->all_total,
+            $this->all_total < 1 ? 'message' : 'messages'
+            );
+    }
 }
